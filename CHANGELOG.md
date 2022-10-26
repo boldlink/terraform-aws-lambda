@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: Add Event Invoke Config
 - feat: Add lambda invocation feature
 
-## [1.0.0] - 2022-10-21
+## [1.0.0] - 2022-10-26
 ### Description
 - feat: include all the viable/basic features for a working lambda function
 - feat: include the permissions required by the lambda function resource
