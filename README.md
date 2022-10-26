@@ -39,9 +39,9 @@ module "minimum_lambda_example" {
 ```
 ## Documentation
 
-[<ex. Amazon VPC/Github/Cloudflare> Documentation](https://link)
+[AWS Lambda Documentation](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
 
-[Terraform module documentation](https://link)
+[Terraform module documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
