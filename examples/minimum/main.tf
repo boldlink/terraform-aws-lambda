@@ -1,1 +1,16 @@
-#(empty)
+module "minimum_lambda_example" {
+  source                        = "../.."
+  function_name                 = local.function_name
+  description                   = "Lambda function to stop EC2 instances"
+  filename                      = "lambda.zip"
+  handler                       = "example.lambda_handler"
+  publish                       = true
+  runtime                       = "python3.9"
+  source_code_hash              = data.archive_file.lambda_zip.output_base64sha256
+  additional_lambda_permissions = local.additional_lambda_permissions
+  tags                          = local.tags
+
+  tracing_config = {
+    mode = "Active"
+  }
+}

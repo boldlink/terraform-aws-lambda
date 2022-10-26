@@ -3,7 +3,7 @@
 
 [<img src="https://avatars.githubusercontent.com/u/25388280?s=200&v=4" width="96"/>](https://boldlink.io)
 
-# Terraform  module example of complete and most common configuration
+# Terraform module example of complete and most common configuration
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -12,19 +12,26 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14.11 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.20.0 |
+| <a name="requirement_archive"></a> [archive](#requirement\_archive) | >= 2.2.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.30.0 |
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_archive"></a> [archive](#provider\_archive) | 2.2.0 |
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_complete_lambda_example"></a> [complete\_lambda\_example](#module\_complete\_lambda\_example) | ../.. | n/a |
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [archive_file.lambda_zip](https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file) | data source |
 
 ## Inputs
 
