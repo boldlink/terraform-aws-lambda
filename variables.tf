@@ -206,3 +206,10 @@ variable "layers_permission" {
   description = "Configuration to allow sharing of Lambda Layers to another account by account ID, to all accounts in AWS organization or even to all AWS accounts."
   default     = []
 }
+
+## Alias
+variable "alias" {
+  type        = map(string)
+  description = "Configuration for lambda alias"
+  default     = {}
+}

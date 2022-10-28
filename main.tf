@@ -162,3 +162,15 @@ resource "aws_lambda_permission" "main" {
   statement_id_prefix    = try(var.lambda_permissions[count.index]["statement_id_prefix"], null)
   principal_org_id       = try(var.lambda_permissions[count.index]["principal_org_id"], null)
 }
+
+resource "aws_lambda_alias" "main" {
+  for_each         = var.alias
+  name             = try(each.value.name, each.key)
+  description      = try(each.value.description, null)
+  function_name    = aws_lambda_function.main.function_name
+  function_version = try(each.value.function_version, each.key)
+
+  routing_config {
+    additional_version_weights = try([each.value.routing_config.additional_version_weights], [])
+  }
+}

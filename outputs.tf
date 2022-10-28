@@ -136,3 +136,14 @@ output "layer_version" {
   value       = join("", aws_lambda_layer_version.main.*.version)
   description = "Lambda Layer version."
 }
+
+### Alias
+output "alias_arn" {
+  value       = [for alias in aws_lambda_alias.main : alias.arn]
+  description = "The Amazon Resource Name (ARN) identifying the Lambda function alias."
+}
+
+output "alias_invoke_arn" {
+  value       = [for alias in aws_lambda_alias.main : alias.invoke_arn]
+  description = "The ARN to be used for invoking Lambda Function from API Gateway - to be used in aws_api_gateway_integration's `uri`"
+}
