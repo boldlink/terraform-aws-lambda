@@ -10,9 +10,26 @@
 
 ## Description
 
-This module creates AWS lambda and associated resources
+This module creates AWS lambda and associated resources. This module as well as other Boldlink modules are created following AWS best practices as highlighted by checkov scans on the modules. This ensures that resources are deployed in a secure manner and environment.
+
+### Features covered in this module
+- AWS Cloudwatch Log Group for the created lambda function is encrypted using AWS CMK key
+- AWS Best Practices have been adhered to in the creation of the module
+- Flexibility to provide more IAM permissions to the Lambda function to interact with other AWS services, on top of the default permissions created by the module. This is specified by using the `additional_lambda_permissions` variable.
+- Create a lambda alias
+- Lambda layers to install external code dependencies to the lambda function
+- Lambda layer permission to grant cross account functions permissions to use the lambda layers created
+- Lambda permission to grant other AWS services permissions to invoke the lambda function
 
 Examples available [`here`](./examples)
+
+A variable defined as `map(any)` type means it can be a mix of strings, list of strings and map of strings, for example;
+```console
+vpc_config = {
+  security_group_ids = ["sg-1234567898id1", "sg-1234567898id2"]
+  subnet_ids         = ["subnet-1234567898id1", "subnet-1234567898id2"]
+}
+```
 
 ## Usage
 *NOTE*: These examples use the latest version of this module
@@ -138,7 +155,7 @@ No modules.
 | <a name="output_lambda_role_id"></a> [lambda\_role\_id](#output\_lambda\_role\_id) | Name of the lambda role. |
 | <a name="output_last_modified"></a> [last\_modified](#output\_last\_modified) | Date this resource was last modified. |
 | <a name="output_layer_arn"></a> [layer\_arn](#output\_layer\_arn) | ARN of the Lambda Layer with version. |
-| <a name="output_layer_arn_w_version"></a> [layer\_arn\_w\_version](#output\_layer\_arn\_w\_version) | ARN of the Lambda Layer without version. |
+| <a name="output_layer_arn_without_version"></a> [layer\_arn\_without\_version](#output\_layer\_arn\_without\_version) | ARN of the Lambda Layer without version. |
 | <a name="output_layer_created_date"></a> [layer\_created\_date](#output\_layer\_created\_date) | Date this resource was created. |
 | <a name="output_layer_name"></a> [layer\_name](#output\_layer\_name) | Name for your Lambda Layer |
 | <a name="output_layer_signing_job_arn"></a> [layer\_signing\_job\_arn](#output\_layer\_signing\_job\_arn) | ARN of a signing job. |

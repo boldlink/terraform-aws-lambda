@@ -112,7 +112,7 @@ output "layer_created_date" {
   description = "Date this resource was created."
 }
 
-output "layer_arn_w_version" {
+output "layer_arn_without_version" {
   value       = join("", aws_lambda_layer_version.main.*.layer_arn)
   description = "ARN of the Lambda Layer without version."
 }
