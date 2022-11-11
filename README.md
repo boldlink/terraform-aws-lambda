@@ -29,7 +29,22 @@ vpc_config = {
   security_group_ids = ["sg-1234567898id1", "sg-1234567898id2"]
   subnet_ids         = ["subnet-1234567898id1", "subnet-1234567898id2"]
 }
+
+file_system_config = {
+  # EFS file system access point ARN
+  arn = "EFS_ACCESS_POINT_ARN_HERE"
+  # Local mount path inside the lambda function. Must start with '/mnt/'.
+  local_mount_path = "/mnt/efs"
+}
+
+image_config = {
+  command           = "<provide_command_here>"
+  entry_point       = "<specify_entrypoint>"
+  working_directory = "specify_working_directory"
+}
 ```
+
+See how other variables with the same type have been used in [`complete example`](./examples/complete/main.tf)
 
 ## Usage
 *NOTE*: These examples use the latest version of this module
