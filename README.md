@@ -10,16 +10,15 @@
 
 ## Description
 
-This module creates AWS lambda and associated resources. This module as well as other Boldlink modules are created following AWS best practices as highlighted by checkov scans on the modules. This ensures that resources are deployed in a secure manner and environment.
+Boldlink AWS Lambda module has been scanned with Checkov to ensure its resources and default configurations are provided to you following known standards and best practices.
 
-### Features covered in this module
-- AWS Cloudwatch Log Group for the created lambda function is encrypted using AWS CMK key
-- AWS Best Practices have been adhered to in the creation of the module
-- Flexibility to provide more IAM permissions to the Lambda function to interact with other AWS services, on top of the default permissions created by the module. This is specified by using the `additional_lambda_permissions` variable.
-- Create a lambda alias
+### Why choose this module over the standard resouces
+- AWS Cloudwatch Log Group for the created lambda function are encrypted using AWS CMK key by default and support other encryption options.
+- Default configurations have been validated by Chekov to ensure best practices and security.
+- Configurable IAM permissions for your Lambda function with supported AWS services, on top of the default permissions created by the module. This is specified by using the `additional_lambda_permissions` variable.
+- Lambda alias included as a default
 - Lambda layers to install external code dependencies to the lambda function
-- Lambda layer permission to grant cross account functions permissions to use the lambda layers created
-- Lambda permission to grant other AWS services permissions to invoke the lambda function
+- Lambda layer permission to grant cross account functions to use the lambda layers created
 
 Examples available [`here`](./examples)
 
