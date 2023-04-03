@@ -25,7 +25,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_archive"></a> [archive](#provider\_archive) | 2.2.0 |
+| <a name="provider_archive"></a> [archive](#provider\_archive) | 2.3.0 |
 
 ## Modules
 
