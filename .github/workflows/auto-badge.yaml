@@ -14,37 +14,15 @@ on:
       - 'releases/*'
       - 'chore/*'
       - 'chores/*'
+      - 'automation*'
 
-env:
-  REPO_NAME: ${{ github.event.repository.name }}
-  REPO_OWNER: ${{ github.repository_owner }}
+permissions: read-all
 
 jobs:
   auto-badge:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Git checkout
-      uses: actions/checkout@v3
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Git checkout Labs Tools
-      uses: actions/checkout@v3
-      with:
-        token: ${{ secrets.AUTOMATION_TOKEN }}
-        repository: boldlink/labs-tools-scripts
-        ref: 'main'
-        path: .terraform_ignore
-
-    - name: Adding Workflow Badges
-      shell: bash
-      run: bash ${GITHUB_WORKSPACE}/.terraform_ignore/scripts/auto-badge/autobadge.sh && rm -rf ${GITHUB_WORKSPACE}/.terraform_ignore/
-
-    - name: Push changes automatically!
-      uses: EndBug/add-and-commit@v9
-      with:
-        message: '[Boldlinksig]: Workflow Badges Added/Updated.'
-        author_name: boldlinksig
-        author_email: boldlinksig@boldlink.io
-        committer_name: boldlinksig
-        committer_email: boldlinksig@boldlink.io
+    permissions:
+      contents: write
+    uses: boldlink/terraform-module-support/.github/workflows/auto-badge.yaml@main
+    secrets:
+      AUTOMATION_TOKEN: ${{ secrets.AUTOMATION_TOKEN }}
+      SLACK_WEBHOOK : ${{secrets.SLACK_WEBHOOK}}
