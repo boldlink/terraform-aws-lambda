@@ -35,7 +35,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | boldlink/vpc/aws | 3.0.4 |
+| <a name="module_lambda_vpc"></a> [lambda\_vpc](#module\_lambda\_vpc) | boldlink/vpc/aws | 3.0.4 |
 
 ## Resources
 
