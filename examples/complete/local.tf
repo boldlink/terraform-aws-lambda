@@ -1,9 +1,9 @@
 locals {
   function_name = "complete-lambda-example"
-  private_subnet_id = [
+  private_subnet_ids = [
     for i in data.aws_subnet.private : i.id
   ]
-  private_subnets = local.private_subnet_id
+  private_subnets = local.private_subnet_ids
   vpc_id          = data.aws_vpc.supporting.id
   vpc_cidr        = data.aws_vpc.supporting.cidr_block
   tags = {
