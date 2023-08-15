@@ -55,7 +55,7 @@ module "complete_lambda_example" {
   ## See `additional_lambda_permissions` in locals for the permissions required to access/use vpc resources (for NetworkInterface and Instances)
   vpc_config = {
     security_group_ids = [aws_security_group.lambda.id]
-    subnet_ids         = local.private_subnets
+    subnet_ids         = try(local.private_subnets, [])
   }
 
   tracing_config = {

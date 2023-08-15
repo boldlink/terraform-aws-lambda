@@ -8,12 +8,12 @@ module "vpc" {
   enable_dns_hostnames   = var.enable_dns_hostnames
   enable_public_subnets  = var.enable_public_subnets
   enable_private_subnets = var.enable_private_subnets
-  tags                   = var.tags
+  tags                   = local.tags
 
   public_subnets = {
     public = {
-      cidrs                   = local.public_subnets
-      nat                     = var.nat
+      cidrs = local.public_subnets
+      nat   = var.nat
     }
   }
 

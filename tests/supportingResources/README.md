@@ -35,7 +35,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_autoscaling_vpc"></a> [autoscaling\_vpc](#module\_autoscaling\_vpc) | boldlink/vpc/aws | 3.0.4 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | boldlink/vpc/aws | 3.0.4 |
 
 ## Resources
 
@@ -50,7 +50,7 @@ No resources.
 | <a name="input_enable_dns_support"></a> [enable\_dns\_support](#input\_enable\_dns\_support) | Whether to enable dns support for the vpc | `bool` | `true` | no |
 | <a name="input_enable_private_subnets"></a> [enable\_private\_subnets](#input\_enable\_private\_subnets) | Whether to enable private subnets | `bool` | `true` | no |
 | <a name="input_enable_public_subnets"></a> [enable\_public\_subnets](#input\_enable\_public\_subnets) | Whether to enable public subnets | `bool` | `true` | no |
-| <a name="input_name"></a> [name](#input\_name) | Name of the stack | `string` | `"terraform-aws-autoscaling"` | no |
+| <a name="input_name"></a> [name](#input\_name) | Name of the stack | `string` | `"terraform-aws-lambda"` | no |
 | <a name="input_nat"></a> [nat](#input\_nat) | Choose `single` or `multi` for NATs | `string` | `"single"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to apply to the created resources | `map(string)` | <pre>{<br>  "Department": "DevOps",<br>  "Environment": "examples",<br>  "InstanceScheduler": true,<br>  "LayerId": "cExample",<br>  "LayerName": "cExample",<br>  "Owner": "Boldlink",<br>  "Project": "Examples",<br>  "user::CostCenter": "terraform-registry"<br>}</pre> | no |
 
