@@ -27,15 +27,14 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_archive"></a> [archive](#provider\_archive) | 2.3.0 |
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.63.0 |
+| <a name="provider_archive"></a> [archive](#provider\_archive) | 2.4.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.12.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_complete_lambda_example"></a> [complete\_lambda\_example](#module\_complete\_lambda\_example) | ../.. | n/a |
-| <a name="module_lambda_vpc"></a> [lambda\_vpc](#module\_lambda\_vpc) | boldlink/vpc/aws | 2.0.3 |
 
 ## Resources
 
@@ -43,13 +42,15 @@
 |------|------|
 | [aws_security_group.lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [archive_file.lambda_zip](https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file) | data source |
-| [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
-| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
-| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
+| [aws_subnet.private](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) | data source |
+| [aws_subnets.private](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets) | data source |
+| [aws_vpc.supporting](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) | data source |
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_supporting_resources_name"></a> [supporting\_resources\_name](#input\_supporting\_resources\_name) | Name of the supporting resources stack | `string` | `"terraform-aws-lambda"` | no |
 
 ## Outputs
 
