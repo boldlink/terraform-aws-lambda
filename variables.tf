@@ -160,7 +160,7 @@ variable "tracing_config" {
 }
 
 variable "vpc_config" {
-  type        = map(any)
+  type        = any
   description = "For network connectivity to AWS resources in a VPC, specify a list of security groups and subnets in the VPC. When you connect a function to a VPC, it can only access resources and the internet through that VPC."
   default     = {}
 }

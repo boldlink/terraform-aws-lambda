@@ -4,10 +4,22 @@ data "archive_file" "lambda_zip" {
   output_path = "lambda.zip"
 }
 
-data "aws_availability_zones" "available" {
-  state = "available"
+
+data "aws_vpc" "supporting" {
+  filter {
+    name   = "tag:Name"
+    values = [var.supporting_resources_name]
+  }
 }
 
-data "aws_caller_identity" "current" {}
+data "aws_subnets" "private" {
+  filter {
+    name   = "tag:Name"
+    values = ["${var.supporting_resources_name}*.pri.*"]
+  }
+}
 
-data "aws_region" "current" {}
+data "aws_subnet" "private" {
+  for_each = toset(data.aws_subnets.private.ids)
+  id       = each.value
+}
