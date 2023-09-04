@@ -112,6 +112,9 @@ No modules.
 | [aws_lambda_layer_version.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_layer_version) | resource |
 | [aws_lambda_layer_version_permission.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_layer_version_permission) | resource |
 | [aws_lambda_permission.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_permission) | resource |
+| [aws_security_group.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [aws_security_group_rule.egress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.ingress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.lambda_assume_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -127,6 +130,7 @@ No modules.
 | <a name="input_architectures"></a> [architectures](#input\_architectures) | (Optional) Instruction set architecture for your Lambda function. Valid values are `["x86_64"]` and `["arm64"]`. Default is `["x86_64"]`. Removing this attribute, function's architecture stay the same. | `list(string)` | <pre>[<br>  "x86_64"<br>]</pre> | no |
 | <a name="input_code_signing_config_arn"></a> [code\_signing\_config\_arn](#input\_code\_signing\_config\_arn) | (Optional) To enable code signing for this function, specify the ARN of a code-signing configuration. A code-signing configuration includes a set of signing profiles, which define the trusted publishers for this function. | `string` | `null` | no |
 | <a name="input_create_lambda_invocation"></a> [create\_lambda\_invocation](#input\_create\_lambda\_invocation) | Whether to create lambda invocation resource | `bool` | `false` | no |
+| <a name="input_create_security_group"></a> [create\_security\_group](#input\_create\_security\_group) | Whether to create a Security Group for the lambda function. | `bool` | `false` | no |
 | <a name="input_dead_letter_config"></a> [dead\_letter\_config](#input\_dead\_letter\_config) | Dead letter queue configuration that specifies the queue or topic where Lambda sends asynchronous events when they fail processing. | `map(any)` | `{}` | no |
 | <a name="input_description"></a> [description](#input\_description) | (Optional) Description of what your Lambda Function does. | `string` | `null` | no |
 | <a name="input_enable_key_rotation"></a> [enable\_key\_rotation](#input\_enable\_key\_rotation) | Choose whether to enable key rotation for cloudwatch kms key | `bool` | `true` | no |
@@ -156,14 +160,18 @@ No modules.
 | <a name="input_s3_bucket"></a> [s3\_bucket](#input\_s3\_bucket) | (Optional) S3 bucket location containing the function's deployment package. Conflicts with filename and image\_uri. This bucket must reside in the same AWS region where you are creating the Lambda function. | `string` | `null` | no |
 | <a name="input_s3_key"></a> [s3\_key](#input\_s3\_key) | (Optional) S3 key of an object containing the function's deployment package. Conflicts with `filename` and `image_uri`. | `string` | `null` | no |
 | <a name="input_s3_object_version"></a> [s3\_object\_version](#input\_s3\_object\_version) | (Optional) Object version containing the function's deployment package. Conflicts with filename and image\_uri. | `string` | `null` | no |
+| <a name="input_security_group_egress_rules"></a> [security\_group\_egress\_rules](#input\_security\_group\_egress\_rules) | (Optional) Egress rules to add to the security group | `any` | `{}` | no |
+| <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | List of security group IDs associated with the Lambda function. | `list(string)` | `[]` | no |
+| <a name="input_security_group_ingress_rules"></a> [security\_group\_ingress\_rules](#input\_security\_group\_ingress\_rules) | (Optional) Ingress rules to add to the security group | `any` | `{}` | no |
 | <a name="input_source_code_hash"></a> [source\_code\_hash](#input\_source\_code\_hash) | (Optional) Used to trigger updates. Must be set to a base64-encoded SHA256 hash of the package file specified with either filename or s3\_key. The usual way to set this is `filebase64sha256("file.zip")` (Terraform 0.11.12 and later) or `base64sha256(file("file.zip"))` (Terraform 0.11.11 and earlier), where "file.zip" is the local filename of the lambda function source archive. | `string` | `null` | no |
+| <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | List of subnet IDs associated with the Lambda function. | `list(string)` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) Map of tags to assign to the object. | `map(string)` | `{}` | no |
 | <a name="input_terraform_key"></a> [terraform\_key](#input\_terraform\_key) | (Optional) The JSON key used to store lifecycle information in the input JSON payload. Defaults to tf. This additional key is only included when lifecycle\_scope is set to CRUD. | `string` | `"tf"` | no |
 | <a name="input_timeout"></a> [timeout](#input\_timeout) | (Optional) Amount of time your Lambda Function has to run in seconds. | `number` | `7` | no |
 | <a name="input_timeouts"></a> [timeouts](#input\_timeouts) | Timeouts configuration for creating the resource | `map(string)` | `{}` | no |
 | <a name="input_tracing_config"></a> [tracing\_config](#input\_tracing\_config) | Configuration block for whether to to sample and trace a subset of incoming requests with AWS X-Ray | `map(any)` | `{}` | no |
 | <a name="input_triggers"></a> [triggers](#input\_triggers) | (Optional) Map of arbitrary keys and values that, when changed, will trigger a re-invocation. | `map(any)` | `{}` | no |
-| <a name="input_vpc_config"></a> [vpc\_config](#input\_vpc\_config) | For network connectivity to AWS resources in a VPC, specify a list of security groups and subnets in the VPC. When you connect a function to a VPC, it can only access resources and the internet through that VPC. | `any` | `{}` | no |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | (Optional, Forces new resource) VPC ID. Defaults to the region's default VPC. | `string` | `null` | no |
 
 ## Outputs
 

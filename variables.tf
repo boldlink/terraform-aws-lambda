@@ -159,12 +159,6 @@ variable "tracing_config" {
   default     = {}
 }
 
-variable "vpc_config" {
-  type        = any
-  description = "For network connectivity to AWS resources in a VPC, specify a list of security groups and subnets in the VPC. When you connect a function to a VPC, it can only access resources and the internet through that VPC."
-  default     = {}
-}
-
 variable "timeouts" {
   type        = map(string)
   description = "Timeouts configuration for creating the resource"
@@ -216,7 +210,6 @@ variable "alias" {
 
 
 ## Lambda Invocation
-
 variable "create_lambda_invocation" {
   description = "Whether to create lambda invocation resource"
   type        = bool
@@ -250,5 +243,43 @@ variable "terraform_key" {
 variable "triggers" {
   description = "(Optional) Map of arbitrary keys and values that, when changed, will trigger a re-invocation. "
   type        = map(any)
+  default     = {}
+}
+
+
+## Security group
+variable "security_group_ids" {
+  description = "List of security group IDs associated with the Lambda function."
+  type        = list(string)
+  default     = []
+}
+
+variable "subnet_ids" {
+  description = "List of subnet IDs associated with the Lambda function."
+  type        = list(string)
+  default     = null
+}
+
+variable "vpc_id" {
+  description = "(Optional, Forces new resource) VPC ID. Defaults to the region's default VPC."
+  type        = string
+  default     = null
+}
+
+variable "create_security_group" {
+  description = "Whether to create a Security Group for the lambda function."
+  default     = false
+  type        = bool
+}
+
+variable "security_group_ingress_rules" {
+  description = "(Optional) Ingress rules to add to the security group"
+  type        = any
+  default     = {}
+}
+
+variable "security_group_egress_rules" {
+  description = "(Optional) Egress rules to add to the security group"
+  type        = any
   default     = {}
 }

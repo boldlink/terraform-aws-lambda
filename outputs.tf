@@ -150,5 +150,5 @@ output "alias_invoke_arn" {
 
 output "result" {
   description = "String result of the lambda function invocation."
-  value       = aws_lambda_invocation.main[0].result
+  value       = join("",aws_lambda_invocation.main.*.result)
 }
