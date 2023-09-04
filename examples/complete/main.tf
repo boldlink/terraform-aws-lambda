@@ -1,34 +1,3 @@
-resource "aws_security_group" "lambda" {
-  #checkov:skip=CKV2_AWS_5
-  name        = local.function_name
-  description = "Allow TLS inbound traffic"
-  vpc_id      = local.vpc_id
-
-  ingress {
-    description = "TLS from VPC"
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = [local.vpc_cidr]
-  }
-
-  egress {
-    description      = "lambda egress rule"
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
-  }
-
-  tags = local.tags
-
-  lifecycle {
-    # Necessary if changing 'name' or 'name_prefix' properties.
-    create_before_destroy = true
-  }
-}
-
 module "complete_lambda_example" {
   source = "../.."
   #checkov:skip=CKV_AWS_50:X-ray tracing is enabled for Lambda
@@ -51,14 +20,34 @@ module "complete_lambda_example" {
   ephemeral_storage = {
     size = 512
   }
+  create_lambda_invocation = true
+  create_security_group    = true
+  vpc_id                   = local.vpc_id
 
   ## See `additional_lambda_permissions` in locals for the permissions required to access/use vpc resources (for NetworkInterface and Instances)
-  vpc_config = {
-    security_group_ids = [aws_security_group.lambda.id]
-    subnet_ids         = local.private_subnets
-  }
+  subnet_ids         = local.private_subnets
 
   tracing_config = {
     mode = "Active"
+  }
+
+  security_group_ingress_rules = {
+    default = {
+      description = "Custom ingress traffic allowed to lambda function"
+      from_port   = 443
+      to_port     = 443
+      protocol    = "tcp"
+      cidr_blocks = [local.vpc_cidr]
+    }
+  }
+
+  security_group_egress_rules = {
+    default = {
+      description = "Custom egress traffic allowed to lambda function"
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
   }
 }
