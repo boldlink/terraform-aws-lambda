@@ -91,7 +91,7 @@ module "minimum_lambda_example" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.12.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.15.0 |
 
 ## Modules
 
@@ -108,6 +108,7 @@ No modules.
 | [aws_kms_key.cloudwatch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
 | [aws_lambda_alias.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_alias) | resource |
 | [aws_lambda_function.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function) | resource |
+| [aws_lambda_invocation.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_invocation) | resource |
 | [aws_lambda_layer_version.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_layer_version) | resource |
 | [aws_lambda_layer_version_permission.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_layer_version_permission) | resource |
 | [aws_lambda_permission.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_permission) | resource |
@@ -125,6 +126,7 @@ No modules.
 | <a name="input_alias"></a> [alias](#input\_alias) | Configuration for lambda alias | `map(string)` | `{}` | no |
 | <a name="input_architectures"></a> [architectures](#input\_architectures) | (Optional) Instruction set architecture for your Lambda function. Valid values are `["x86_64"]` and `["arm64"]`. Default is `["x86_64"]`. Removing this attribute, function's architecture stay the same. | `list(string)` | <pre>[<br>  "x86_64"<br>]</pre> | no |
 | <a name="input_code_signing_config_arn"></a> [code\_signing\_config\_arn](#input\_code\_signing\_config\_arn) | (Optional) To enable code signing for this function, specify the ARN of a code-signing configuration. A code-signing configuration includes a set of signing profiles, which define the trusted publishers for this function. | `string` | `null` | no |
+| <a name="input_create_lambda_invocation"></a> [create\_lambda\_invocation](#input\_create\_lambda\_invocation) | Whether to create lambda invocation resource | `bool` | `false` | no |
 | <a name="input_dead_letter_config"></a> [dead\_letter\_config](#input\_dead\_letter\_config) | Dead letter queue configuration that specifies the queue or topic where Lambda sends asynchronous events when they fail processing. | `map(any)` | `{}` | no |
 | <a name="input_description"></a> [description](#input\_description) | (Optional) Description of what your Lambda Function does. | `string` | `null` | no |
 | <a name="input_enable_key_rotation"></a> [enable\_key\_rotation](#input\_enable\_key\_rotation) | Choose whether to enable key rotation for cloudwatch kms key | `bool` | `true` | no |
@@ -136,15 +138,18 @@ No modules.
 | <a name="input_handler"></a> [handler](#input\_handler) | (Optional) Function entrypoint in your code. | `string` | `null` | no |
 | <a name="input_image_config"></a> [image\_config](#input\_image\_config) | Container image configuration values that override the values in the container image Dockerfile. | `map(any)` | `{}` | no |
 | <a name="input_image_uri"></a> [image\_uri](#input\_image\_uri) | (Optional) ECR image URI containing the function's deployment package. Conflicts with `filename`, `s3_bucket`, `s3_key`, and `s3_object_version`. | `string` | `null` | no |
+| <a name="input_input"></a> [input](#input\_input) | (Required) JSON payload to the lambda function. | `any` | `""` | no |
 | <a name="input_key_deletion_window_in_days"></a> [key\_deletion\_window\_in\_days](#input\_key\_deletion\_window\_in\_days) | The number of days before the cloudwatch kms key is deleted | `number` | `7` | no |
 | <a name="input_kms_key_arn"></a> [kms\_key\_arn](#input\_kms\_key\_arn) | (Optional) Amazon Resource Name (ARN) of the AWS Key Management Service (KMS) key that is used to encrypt environment variables. If this configuration is not provided when environment variables are in use, AWS Lambda uses a default service key. If this configuration is provided when environment variables are not in use, the AWS Lambda API does not save this configuration and Terraform will show a perpetual difference of adding the key. To fix the perpetual difference, remove this configuration. | `string` | `null` | no |
 | <a name="input_lambda_permissions"></a> [lambda\_permissions](#input\_lambda\_permissions) | Configuration to give external source(s) (like an EventBridge Rule, SNS, or S3) permission to access the Lambda function. | `list(any)` | `[]` | no |
 | <a name="input_layers"></a> [layers](#input\_layers) | (Optional) List of Lambda Layer Version (maximum of 5) to attach to your Lambda Function | `any` | `[]` | no |
 | <a name="input_layers_permission"></a> [layers\_permission](#input\_layers\_permission) | Configuration to allow sharing of Lambda Layers to another account by account ID, to all accounts in AWS organization or even to all AWS accounts. | `list(any)` | `[]` | no |
+| <a name="input_lifecycle_scope"></a> [lifecycle\_scope](#input\_lifecycle\_scope) | (Optional) Lifecycle scope of the resource to manage. Valid values are CREATE\_ONLY and CRUD. Defaults to CREATE\_ONLY. CREATE\_ONLY will invoke the function only on creation or replacement. CRUD will invoke the function on each lifecycle event, and augment the input JSON payload with additional lifecycle information. | `string` | `"CREATE_ONLY"` | no |
 | <a name="input_log_group_kms_arn"></a> [log\_group\_kms\_arn](#input\_log\_group\_kms\_arn) | ARN of an existing KMS Key to encrypt/decrypt the lambda cloudwatch log group | `string` | `null` | no |
 | <a name="input_memory_size"></a> [memory\_size](#input\_memory\_size) | (Optional) Amount of memory in MB your Lambda Function can use at runtime. Defaults to `128` | `number` | `128` | no |
 | <a name="input_package_type"></a> [package\_type](#input\_package\_type) | (Optional) Lambda deployment package type. Valid values are `Zip` and `Image`. Defaults to `Zip` | `string` | `"Zip"` | no |
 | <a name="input_publish"></a> [publish](#input\_publish) | (Optional) Whether to publish creation/change as new Lambda Function Version. Defaults to `false` | `bool` | `false` | no |
+| <a name="input_qualifier"></a> [qualifier](#input\_qualifier) | (Optional) Qualifier (i.e., version) of the lambda function. Defaults to $LATEST. | `string` | `"$LATEST"` | no |
 | <a name="input_reserved_concurrent_executions"></a> [reserved\_concurrent\_executions](#input\_reserved\_concurrent\_executions) | (Optional) Amount of reserved concurrent executions for this lambda function. A value of `0` disables lambda from being triggered and `-1` removes any concurrency limitations. Defaults to Unreserved Concurrency Limits `-1` | `number` | `-1` | no |
 | <a name="input_retention_in_days"></a> [retention\_in\_days](#input\_retention\_in\_days) | Specifies the number of days you want to retain log events in the specified log group. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653, and 0. If you select 0, the events in the log group are always retained and never expire. | `number` | `1827` | no |
 | <a name="input_runtime"></a> [runtime](#input\_runtime) | (Optional) Identifier of the function's runtime. | `string` | `null` | no |
@@ -153,9 +158,11 @@ No modules.
 | <a name="input_s3_object_version"></a> [s3\_object\_version](#input\_s3\_object\_version) | (Optional) Object version containing the function's deployment package. Conflicts with filename and image\_uri. | `string` | `null` | no |
 | <a name="input_source_code_hash"></a> [source\_code\_hash](#input\_source\_code\_hash) | (Optional) Used to trigger updates. Must be set to a base64-encoded SHA256 hash of the package file specified with either filename or s3\_key. The usual way to set this is `filebase64sha256("file.zip")` (Terraform 0.11.12 and later) or `base64sha256(file("file.zip"))` (Terraform 0.11.11 and earlier), where "file.zip" is the local filename of the lambda function source archive. | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) Map of tags to assign to the object. | `map(string)` | `{}` | no |
+| <a name="input_terraform_key"></a> [terraform\_key](#input\_terraform\_key) | (Optional) The JSON key used to store lifecycle information in the input JSON payload. Defaults to tf. This additional key is only included when lifecycle\_scope is set to CRUD. | `string` | `"tf"` | no |
 | <a name="input_timeout"></a> [timeout](#input\_timeout) | (Optional) Amount of time your Lambda Function has to run in seconds. | `number` | `7` | no |
 | <a name="input_timeouts"></a> [timeouts](#input\_timeouts) | Timeouts configuration for creating the resource | `map(string)` | `{}` | no |
 | <a name="input_tracing_config"></a> [tracing\_config](#input\_tracing\_config) | Configuration block for whether to to sample and trace a subset of incoming requests with AWS X-Ray | `map(any)` | `{}` | no |
+| <a name="input_triggers"></a> [triggers](#input\_triggers) | (Optional) Map of arbitrary keys and values that, when changed, will trigger a re-invocation. | `map(any)` | `{}` | no |
 | <a name="input_vpc_config"></a> [vpc\_config](#input\_vpc\_config) | For network connectivity to AWS resources in a VPC, specify a list of security groups and subnets in the VPC. When you connect a function to a VPC, it can only access resources and the internet through that VPC. | `any` | `{}` | no |
 
 ## Outputs
@@ -186,6 +193,7 @@ No modules.
 | <a name="output_log_group_name"></a> [log\_group\_name](#output\_log\_group\_name) | The name of the lambda log group. |
 | <a name="output_qualified_arn"></a> [qualified\_arn](#output\_qualified\_arn) | ARN identifying your Lambda Function Version (if versioning is enabled via `publish = true)`. |
 | <a name="output_qualified_invoke_arn"></a> [qualified\_invoke\_arn](#output\_qualified\_invoke\_arn) | Qualified ARN (ARN with lambda version number) to be used for invoking Lambda Function from API Gateway - to be used in aws\_api\_gateway\_integration's `uri`. |
+| <a name="output_result"></a> [result](#output\_result) | String result of the lambda function invocation. |
 | <a name="output_signing_job_arn"></a> [signing\_job\_arn](#output\_signing\_job\_arn) | ARN of the signing job. |
 | <a name="output_signing_profile_version_arn"></a> [signing\_profile\_version\_arn](#output\_signing\_profile\_version\_arn) | ARN of the signing profile version. |
 | <a name="output_source_code_size"></a> [source\_code\_size](#output\_source\_code\_size) | Size in bytes of the function `.zip file`. |

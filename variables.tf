@@ -213,3 +213,42 @@ variable "alias" {
   description = "Configuration for lambda alias"
   default     = {}
 }
+
+
+## Lambda Invocation
+
+variable "create_lambda_invocation" {
+  description = "Whether to create lambda invocation resource"
+  type        = bool
+  default     = false
+}
+
+variable "input" {
+  description = " (Required) JSON payload to the lambda function."
+  type        = any
+  default     = ""
+}
+
+variable "lifecycle_scope" {
+  description = "(Optional) Lifecycle scope of the resource to manage. Valid values are CREATE_ONLY and CRUD. Defaults to CREATE_ONLY. CREATE_ONLY will invoke the function only on creation or replacement. CRUD will invoke the function on each lifecycle event, and augment the input JSON payload with additional lifecycle information."
+  type        = string
+  default     = "CREATE_ONLY"
+}
+
+variable "qualifier" {
+  description = "(Optional) Qualifier (i.e., version) of the lambda function. Defaults to $LATEST."
+  type        = string
+  default     = "$LATEST"
+}
+
+variable "terraform_key" {
+  description = " (Optional) The JSON key used to store lifecycle information in the input JSON payload. Defaults to tf. This additional key is only included when lifecycle_scope is set to CRUD."
+  type        = string
+  default     = "tf"
+}
+
+variable "triggers" {
+  description = "(Optional) Map of arbitrary keys and values that, when changed, will trigger a re-invocation. "
+  type        = map(any)
+  default     = {}
+}

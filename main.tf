@@ -174,3 +174,14 @@ resource "aws_lambda_alias" "main" {
     additional_version_weights = try([each.value.routing_config.additional_version_weights], [])
   }
 }
+
+
+resource "aws_lambda_invocation" "main" {
+  count           = var.create_lambda_invocation ? 1 : 0
+  function_name   = aws_lambda_function.main.function_name
+  input           = var.input
+  lifecycle_scope = var.lifecycle_scope
+  qualifier       = var.qualifier
+  terraform_key   = var.terraform_key
+  triggers        = var.triggers
+}

@@ -147,3 +147,8 @@ output "alias_invoke_arn" {
   value       = [for alias in aws_lambda_alias.main : alias.invoke_arn]
   description = "The ARN to be used for invoking Lambda Function from API Gateway - to be used in aws_api_gateway_integration's `uri`"
 }
+
+output "result" {
+  description = "String result of the lambda function invocation."
+  value       = aws_lambda_invocation.main[0].result
+}
