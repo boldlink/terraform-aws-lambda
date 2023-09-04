@@ -1,6 +1,7 @@
 module "complete_lambda_example" {
   source = "../.."
   #checkov:skip=CKV_AWS_50:X-ray tracing is enabled for Lambda
+  #checkov:skip=CKV2_AWS_5: "Ensure that Security Groups are attached to another resource"
   function_name                 = local.function_name
   description                   = "Lambda function to stop EC2 instances"
   filename                      = "lambda.zip"
