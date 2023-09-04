@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: Add Event Invoke Config
 - feat: Add lambda invocation feature
 - feat: Show more usage of the features in complete/specific feature examples
+- fix: CKV_AWS_50: "X-ray tracing is enabled for Lambda"
+- fix: CKV2_AWS_5: "Ensure that Security Groups are attached to another resource"
+
+
+## [1.1.0] - 2023-09-04
+- feat: lambda invocation resource for the module
+- feat: security group and security group rules resources for the module
 
 ## [1.0.1] - 2023-08-15
 - fix: VPC version used in supporting resources. This is to fix pre-commit errors from deprecated outputs
@@ -27,8 +34,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial commit
 - feat: add files from template repository
 
-[Unreleased]: https://github.com/boldlink/terraform-aws-lambda/compare/1.0.0...HEAD
+[Unreleased]: https://github.com/boldlink/terraform-aws-lambda/compare/1.1.0...HEAD
 
+[1.1.0]: https://github.com/boldlink/terraform-aws-lambda/releases/tag/1.1.0
 [1.0.1]: https://github.com/boldlink/terraform-aws-lambda/releases/tag/1.0.1
 [1.0.0]: https://github.com/boldlink/terraform-aws-lambda/releases/tag/1.0.0
 [0.1.0]: https://github.com/boldlink/terraform-aws-lambda/releases/tag/0.1.0
