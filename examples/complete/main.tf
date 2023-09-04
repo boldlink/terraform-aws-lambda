@@ -25,7 +25,7 @@ module "complete_lambda_example" {
   vpc_id                   = local.vpc_id
 
   ## See `additional_lambda_permissions` in locals for the permissions required to access/use vpc resources (for NetworkInterface and Instances)
-  subnet_ids         = local.private_subnets
+  subnet_ids = local.private_subnets
 
   tracing_config = {
     mode = "Active"
