@@ -217,7 +217,7 @@ variable "create_lambda_invocation" {
 }
 
 variable "input" {
-  description = " (Required) JSON payload to the lambda function."
+  description = "(Required) JSON payload to the lambda function."
   type        = any
   default     = ""
 }
@@ -235,7 +235,7 @@ variable "qualifier" {
 }
 
 variable "terraform_key" {
-  description = " (Optional) The JSON key used to store lifecycle information in the input JSON payload. Defaults to tf. This additional key is only included when lifecycle_scope is set to CRUD."
+  description = "(Optional) The JSON key used to store lifecycle information in the input JSON payload. Defaults to tf. This additional key is only included when lifecycle_scope is set to CRUD."
   type        = string
   default     = "tf"
 }
