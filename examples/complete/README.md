@@ -28,7 +28,7 @@
 | Name | Version |
 |------|---------|
 | <a name="provider_archive"></a> [archive](#provider\_archive) | 2.4.0 |
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.12.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.15.0 |
 
 ## Modules
 
@@ -40,7 +40,6 @@
 
 | Name | Type |
 |------|------|
-| [aws_security_group.lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [archive_file.lambda_zip](https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file) | data source |
 | [aws_subnet.private](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) | data source |
 | [aws_subnets.private](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets) | data source |
@@ -70,4 +69,4 @@ This repository uses third party software:
   * Install with `brew install tflint`
   * Manually use via pre-commit
 
-#### BOLDLink-SIG 2022
+#### BOLDLink-SIG 2023

@@ -67,10 +67,10 @@ resource "aws_lambda_function" "main" {
   }
 
   dynamic "vpc_config" {
-    for_each = length(keys(var.vpc_config)) > 0 ? [var.vpc_config] : []
+    for_each = var.subnet_ids != null && (var.create_security_group || length(var.security_group_ids) != 0) ? [true] : []
     content {
-      security_group_ids = vpc_config.value.security_group_ids
-      subnet_ids         = vpc_config.value.subnet_ids
+      security_group_ids = compact(concat([aws_security_group.main[0].id], var.security_group_ids))
+      subnet_ids         = var.subnet_ids
     }
   }
 
@@ -173,4 +173,52 @@ resource "aws_lambda_alias" "main" {
   routing_config {
     additional_version_weights = try([each.value.routing_config.additional_version_weights], [])
   }
+}
+
+## Security Group
+
+resource "aws_security_group" "main" {
+  count       = var.create_security_group ? 1 : 0
+  name        = "${var.function_name}-security-group"
+  vpc_id      = var.vpc_id
+  description = "${var.function_name} Security Group"
+  tags        = var.tags
+}
+
+resource "aws_security_group_rule" "ingress" {
+  for_each                 = var.security_group_ingress_rules
+  type                     = "ingress"
+  description              = lookup(each.value, "description", null)
+  from_port                = lookup(each.value, "from_port")
+  to_port                  = lookup(each.value, "to_port")
+  protocol                 = lookup(each.value, "protocol", "tcp")
+  cidr_blocks              = lookup(each.value, "cidr_blocks", [])
+  source_security_group_id = lookup(each.value, "source_security_group_id", null)
+  self                     = lookup(each.value, "self", null)
+  security_group_id        = aws_security_group.main[0].id
+}
+
+resource "aws_security_group_rule" "egress" {
+  for_each                 = var.security_group_egress_rules
+  type                     = "egress"
+  description              = lookup(each.value, "description", null)
+  from_port                = lookup(each.value, "from_port")
+  to_port                  = lookup(each.value, "to_port")
+  protocol                 = lookup(each.value, "protocol", "-1")
+  cidr_blocks              = lookup(each.value, "cidr_blocks", [])
+  source_security_group_id = lookup(each.value, "source_security_group_id", null)
+  self                     = lookup(each.value, "self", null)
+  security_group_id        = aws_security_group.main[0].id
+}
+
+
+resource "aws_lambda_invocation" "main" {
+  count           = var.create_lambda_invocation ? 1 : 0
+  function_name   = aws_lambda_function.main.function_name
+  input           = var.input
+  lifecycle_scope = var.lifecycle_scope
+  qualifier       = var.qualifier
+  terraform_key   = var.terraform_key
+  triggers        = var.triggers
+  depends_on      = [aws_lambda_function.main]
 }

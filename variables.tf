@@ -159,12 +159,6 @@ variable "tracing_config" {
   default     = {}
 }
 
-variable "vpc_config" {
-  type        = any
-  description = "For network connectivity to AWS resources in a VPC, specify a list of security groups and subnets in the VPC. When you connect a function to a VPC, it can only access resources and the internet through that VPC."
-  default     = {}
-}
-
 variable "timeouts" {
   type        = map(string)
   description = "Timeouts configuration for creating the resource"
@@ -211,5 +205,81 @@ variable "layers_permission" {
 variable "alias" {
   type        = map(string)
   description = "Configuration for lambda alias"
+  default     = {}
+}
+
+
+## Lambda Invocation
+variable "create_lambda_invocation" {
+  description = "Whether to create lambda invocation resource"
+  type        = bool
+  default     = false
+}
+
+variable "input" {
+  description = "(Required) JSON payload to the lambda function."
+  type        = any
+  default     = ""
+}
+
+variable "lifecycle_scope" {
+  description = "(Optional) Lifecycle scope of the resource to manage. Valid values are CREATE_ONLY and CRUD. Defaults to CREATE_ONLY. CREATE_ONLY will invoke the function only on creation or replacement. CRUD will invoke the function on each lifecycle event, and augment the input JSON payload with additional lifecycle information."
+  type        = string
+  default     = "CREATE_ONLY"
+}
+
+variable "qualifier" {
+  description = "(Optional) Qualifier (i.e., version) of the lambda function. Defaults to $LATEST."
+  type        = string
+  default     = "$LATEST"
+}
+
+variable "terraform_key" {
+  description = "(Optional) The JSON key used to store lifecycle information in the input JSON payload. Defaults to tf. This additional key is only included when lifecycle_scope is set to CRUD."
+  type        = string
+  default     = "tf"
+}
+
+variable "triggers" {
+  description = "(Optional) Map of arbitrary keys and values that, when changed, will trigger a re-invocation. "
+  type        = map(any)
+  default     = {}
+}
+
+
+## Security group
+variable "security_group_ids" {
+  description = "List of security group IDs associated with the Lambda function."
+  type        = list(string)
+  default     = []
+}
+
+variable "subnet_ids" {
+  description = "List of subnet IDs associated with the Lambda function."
+  type        = list(string)
+  default     = null
+}
+
+variable "vpc_id" {
+  description = "(Optional, Forces new resource) VPC ID. Defaults to the region's default VPC."
+  type        = string
+  default     = null
+}
+
+variable "create_security_group" {
+  description = "Whether to create a Security Group for the lambda function."
+  default     = false
+  type        = bool
+}
+
+variable "security_group_ingress_rules" {
+  description = "(Optional) Ingress rules to add to the security group"
+  type        = any
+  default     = {}
+}
+
+variable "security_group_egress_rules" {
+  description = "(Optional) Egress rules to add to the security group"
+  type        = any
   default     = {}
 }
