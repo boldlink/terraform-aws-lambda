@@ -10,7 +10,7 @@ resource "aws_lambda_function" "main" {
   s3_key                         = var.s3_key
   s3_object_version              = var.s3_object_version
   handler                        = var.handler
-  kms_key_arn                    = var.kms_key_arn
+  kms_key_arn                    = var.create_kms_key ? aws_kms_key.main[0].arn : var.kms_key_arn
   layers                         = try(aws_lambda_layer_version.main.*.arn, [])
   memory_size                    = var.memory_size
   package_type                   = var.package_type
@@ -69,25 +69,28 @@ resource "aws_lambda_function" "main" {
   dynamic "vpc_config" {
     for_each = var.subnet_ids != null && (var.create_security_group || length(var.security_group_ids) != 0) ? [true] : []
     content {
-      security_group_ids = compact(concat([aws_security_group.main[0].id], var.security_group_ids))
+      security_group_ids = var.create_security_group ? concat([aws_security_group.main[0].id], var.security_group_ids) : var.security_group_ids
       subnet_ids         = var.subnet_ids
     }
   }
 
   timeouts {
-    create = try(var.timeouts["create"], "10m")
+    create = lookup(var.timeouts, "create", "30m")
+    update = lookup(var.timeouts, "update", "30m")
+    delete = lookup(var.timeouts, "delete", "30m")
   }
 
   depends_on = [
     aws_iam_role_policy_attachment.lambda_logs,
     aws_cloudwatch_log_group.lambda,
+    aws_kms_key.main
   ]
 }
 
 resource "aws_cloudwatch_log_group" "lambda" {
   name              = "/aws/lambda/${var.function_name}"
   retention_in_days = var.retention_in_days
-  kms_key_id        = var.log_group_kms_arn == null ? aws_kms_key.cloudwatch[0].arn : var.log_group_kms_arn
+  kms_key_id        = var.create_kms_key ? aws_kms_key.main[0].arn : var.kms_key_arn
   tags              = var.tags
 }
 
@@ -111,8 +114,8 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
   policy_arn = aws_iam_policy.lambda_logging.arn
 }
 
-resource "aws_kms_key" "cloudwatch" {
-  count                   = var.log_group_kms_arn == null ? 1 : 0
+resource "aws_kms_key" "main" {
+  count                   = var.create_kms_key ? 1 : 0
   description             = "${var.function_name} Log Group KMS key"
   enable_key_rotation     = var.enable_key_rotation
   policy                  = local.kms_policy

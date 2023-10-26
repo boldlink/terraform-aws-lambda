@@ -87,12 +87,12 @@ output "lambda_role_arn" {
 
 ### Lambda KMS
 output "lambda_kms_arn" {
-  value       = join("", aws_kms_key.cloudwatch.*.arn)
+  value       = join("", aws_kms_key.main.*.arn)
   description = "The Amazon Resource Name (ARN) of the lambda key."
 }
 
 output "lambda_kms_id" {
-  value       = join("", aws_kms_key.cloudwatch.*.key_id)
+  value       = join("", aws_kms_key.main.*.key_id)
   description = "The globally unique identifier for the lambda kms key."
 }
 
