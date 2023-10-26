@@ -35,12 +35,20 @@
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_complete_lambda_example"></a> [complete\_lambda\_example](#module\_complete\_lambda\_example) | ../.. | n/a |
+| <a name="module_external_key"></a> [external\_key](#module\_external\_key) | ../.. | n/a |
+| <a name="module_lambda_efs"></a> [lambda\_efs](#module\_lambda\_efs) | boldlink/efs/aws | 1.2.0 |
+| <a name="module_lambda_kms"></a> [lambda\_kms](#module\_lambda\_kms) | boldlink/kms/aws | 1.2.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [aws_efs_access_point.access_point_for_lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/efs_access_point) | resource |
+| [aws_sqs_queue.example_dead_letter_queue](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue) | resource |
 | [archive_file.lambda_zip](https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file) | data source |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 | [aws_subnet.private](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) | data source |
 | [aws_subnets.private](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets) | data source |
 | [aws_vpc.supporting](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) | data source |
@@ -49,6 +57,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_deletion_window_in_days"></a> [deletion\_window\_in\_days](#input\_deletion\_window\_in\_days) | The waiting period, specified in number of days. After the waiting period ends, AWS KMS deletes the KMS key. If you specify a value, it must be between 7 and 30, inclusive. If you do not specify a value, it defaults to 30. If the KMS key is a multi-Region primary key with replicas, the waiting period begins when the last of its replica keys is deleted. Otherwise, the waiting period begins immediately. | `number` | `7` | no |
 | <a name="input_supporting_resources_name"></a> [supporting\_resources\_name](#input\_supporting\_resources\_name) | Name of the supporting resources stack | `string` | `"terraform-aws-lambda"` | no |
 
 ## Outputs
