@@ -105,7 +105,7 @@ No modules.
 | [aws_iam_policy.lambda_logging](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.iam_for_lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy_attachment.lambda_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_kms_key.cloudwatch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
+| [aws_kms_key.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
 | [aws_lambda_alias.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_alias) | resource |
 | [aws_lambda_function.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function) | resource |
 | [aws_lambda_invocation.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_invocation) | resource |
@@ -129,6 +129,7 @@ No modules.
 | <a name="input_alias"></a> [alias](#input\_alias) | Configuration for lambda alias | `map(string)` | `{}` | no |
 | <a name="input_architectures"></a> [architectures](#input\_architectures) | (Optional) Instruction set architecture for your Lambda function. Valid values are `["x86_64"]` and `["arm64"]`. Default is `["x86_64"]`. Removing this attribute, function's architecture stay the same. | `list(string)` | <pre>[<br>  "x86_64"<br>]</pre> | no |
 | <a name="input_code_signing_config_arn"></a> [code\_signing\_config\_arn](#input\_code\_signing\_config\_arn) | (Optional) To enable code signing for this function, specify the ARN of a code-signing configuration. A code-signing configuration includes a set of signing profiles, which define the trusted publishers for this function. | `string` | `null` | no |
+| <a name="input_create_kms_key"></a> [create\_kms\_key](#input\_create\_kms\_key) | Whether to create KMS  key or not | `bool` | `false` | no |
 | <a name="input_create_lambda_invocation"></a> [create\_lambda\_invocation](#input\_create\_lambda\_invocation) | Whether to create lambda invocation resource | `bool` | `false` | no |
 | <a name="input_create_security_group"></a> [create\_security\_group](#input\_create\_security\_group) | Whether to create a Security Group for the lambda function. | `bool` | `false` | no |
 | <a name="input_dead_letter_config"></a> [dead\_letter\_config](#input\_dead\_letter\_config) | Dead letter queue configuration that specifies the queue or topic where Lambda sends asynchronous events when they fail processing. | `map(any)` | `{}` | no |
@@ -149,7 +150,6 @@ No modules.
 | <a name="input_layers"></a> [layers](#input\_layers) | (Optional) List of Lambda Layer Version (maximum of 5) to attach to your Lambda Function | `any` | `[]` | no |
 | <a name="input_layers_permission"></a> [layers\_permission](#input\_layers\_permission) | Configuration to allow sharing of Lambda Layers to another account by account ID, to all accounts in AWS organization or even to all AWS accounts. | `list(any)` | `[]` | no |
 | <a name="input_lifecycle_scope"></a> [lifecycle\_scope](#input\_lifecycle\_scope) | (Optional) Lifecycle scope of the resource to manage. Valid values are CREATE\_ONLY and CRUD. Defaults to CREATE\_ONLY. CREATE\_ONLY will invoke the function only on creation or replacement. CRUD will invoke the function on each lifecycle event, and augment the input JSON payload with additional lifecycle information. | `string` | `"CREATE_ONLY"` | no |
-| <a name="input_log_group_kms_arn"></a> [log\_group\_kms\_arn](#input\_log\_group\_kms\_arn) | ARN of an existing KMS Key to encrypt/decrypt the lambda cloudwatch log group | `string` | `null` | no |
 | <a name="input_memory_size"></a> [memory\_size](#input\_memory\_size) | (Optional) Amount of memory in MB your Lambda Function can use at runtime. Defaults to `128` | `number` | `128` | no |
 | <a name="input_package_type"></a> [package\_type](#input\_package\_type) | (Optional) Lambda deployment package type. Valid values are `Zip` and `Image`. Defaults to `Zip` | `string` | `"Zip"` | no |
 | <a name="input_publish"></a> [publish](#input\_publish) | (Optional) Whether to publish creation/change as new Lambda Function Version. Defaults to `false` | `bool` | `false` | no |

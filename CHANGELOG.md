@@ -13,6 +13,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: Show more usage of the features in complete/specific feature examples
 - fix: CKV_AWS_50: "X-ray tracing is enabled for Lambda"
 - fix: CKV2_AWS_5: "Ensure that Security Groups are attached to another resource"
+- lambda example with S3 bucket being the location containing the function's deployment package
+- lambda example with ECR being the location containing the function's deployment package
+
+## [1.1.1] - 2023-10-26
+- fix: kms key arn
+- security group ids
+- lambda function timeouts block
+- lambda function example that uses external kms key for  env variables and  cloudwatch encryption
+- added dead letter queue sqs to complete example
+- added file system configuration to complete example
 
 
 ## [1.1.0] - 2023-09-04
@@ -34,8 +44,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial commit
 - feat: add files from template repository
 
-[Unreleased]: https://github.com/boldlink/terraform-aws-lambda/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/boldlink/terraform-aws-lambda/compare/1.1.1...HEAD
 
+[1.1.1]: https://github.com/boldlink/terraform-aws-lambda/releases/tag/1.1.1
 [1.1.0]: https://github.com/boldlink/terraform-aws-lambda/releases/tag/1.1.0
 [1.0.1]: https://github.com/boldlink/terraform-aws-lambda/releases/tag/1.0.1
 [1.0.0]: https://github.com/boldlink/terraform-aws-lambda/releases/tag/1.0.0
