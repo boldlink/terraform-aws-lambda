@@ -17,11 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - lambda example with ECR being the location containing the function's deployment package
 
 ## [1.1.1] - 2023-10-26
-- fix: kms key arn
-- security group ids
-- lambda function timeouts block
-- lambda function example that uses external kms key for  env variables and  cloudwatch encryption
-- added dead letter queue sqs to complete example
+- fix: module's kms key
+- fix: security group ids
+- fix: lambda function timeouts block
+- lambda function example that uses external KMS key for env variables and CloudWatch encryption
+- added dead letter queue SQS to complete example
 - added file system configuration to complete example
 
 
