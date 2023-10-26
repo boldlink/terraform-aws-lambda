@@ -91,7 +91,7 @@ module "minimum_lambda_example" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.15.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.22.0 |
 
 ## Modules
 
