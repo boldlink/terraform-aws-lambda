@@ -127,28 +127,30 @@ resource "aws_kms_key" "main" {
 ## Lambda Layers
 ##################
 resource "aws_lambda_layer_version" "main" {
-  count                    = length(var.layers) > 0 ? length(var.layers) : 0
-  filename                 = try(var.layers[count.index]["filename"], null)
-  layer_name               = try(var.layers[count.index]["layer_name"])
-  compatible_runtimes      = try(var.layers[count.index]["compatible_runtimes"], null)
-  compatible_architectures = try([var.layers[count.index]["compatible_architectures"]], [])
-  description              = try(var.layers[count.index]["description"], null)
-  license_info             = try(var.layers[count.index]["license_info"], null)
-  s3_bucket                = try(var.layers[count.index]["s3_bucket"], null)
-  s3_key                   = try(var.layers[count.index]["s3_key"], null)
-  s3_object_version        = try(var.layers[count.index]["s3_object_version"], null)
-  skip_destroy             = try(var.layers[count.index]["skip_destroy"], null)
-  source_code_hash         = try(var.layers[count.index]["source_code_hash"], null)
+  for_each                 = var.layers
+  filename                 = try(each.value.filename, null)
+  layer_name               = each.value.layer_name
+  compatible_runtimes      = try(each.value.compatible_runtimes, [])
+  compatible_architectures = try(each.value.compatible_architectures, [])
+  description              = try(each.value.description, null)
+  license_info             = try(each.value.license_info, null)
+  s3_bucket                = try(each.value.s3_bucket, null)
+  s3_key                   = try(each.value.s3_key, null)
+  s3_object_version        = try(each.value.s3_object_version, null)
+  skip_destroy             = try(each.value.skip_destroy, null)
+  source_code_hash         = try(each.value.source_code_hash, null)
 }
 
 resource "aws_lambda_layer_version_permission" "main" {
-  count           = length(var.layers_permission) > 0 ? length(var.layers_permission) : 0
-  action          = try(var.lambda_permissions[count.index]["action"])
-  layer_name      = try(var.lambda_permissions[count.index]["layer_name"])
-  organization_id = try(var.lambda_permissions[count.index]["organization_id"])
-  principal       = try(var.lambda_permissions[count.index]["principal"])
-  statement_id    = try(var.lambda_permissions[count.index]["statement_id"])
-  version_number  = try(var.lambda_permissions[count.index]["version_number"])
+  for_each        = var.layer_permission
+  action          = each.value.action
+  layer_name      = try(each.value.layer_name, each.key)
+  organization_id = try(each.value.organization_id, null)
+  principal       = each.value.principal
+  statement_id    = each.value.statement_id
+  version_number  = aws_lambda_layer_version.main[each.value.layer_name].version
+  skip_destroy    = try(each.value.skip_destroy, null)
+  depends_on      = [aws_lambda_layer_version.main]
 }
 
 resource "aws_lambda_permission" "main" {
@@ -164,6 +166,7 @@ resource "aws_lambda_permission" "main" {
   statement_id           = try(var.lambda_permissions[count.index]["statement_id"], null)
   statement_id_prefix    = try(var.lambda_permissions[count.index]["statement_id_prefix"], null)
   principal_org_id       = try(var.lambda_permissions[count.index]["principal_org_id"], null)
+  depends_on             = [aws_lambda_function.main]
 }
 
 resource "aws_lambda_alias" "main" {
@@ -171,11 +174,9 @@ resource "aws_lambda_alias" "main" {
   name             = try(each.value.name, each.key)
   description      = try(each.value.description, null)
   function_name    = aws_lambda_function.main.function_name
-  function_version = try(each.value.function_version, each.key)
+  function_version = aws_lambda_function.main.version
 
-  routing_config {
-    additional_version_weights = try([each.value.routing_config.additional_version_weights], [])
-  }
+  depends_on = [aws_lambda_function.main]
 }
 
 ## Security Group
