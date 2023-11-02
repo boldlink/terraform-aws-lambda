@@ -214,7 +214,6 @@ module "lambda_with_ext_kms" {
   }
 }
 
-
 ###################################################################
 ## lambda function with deployment packages stored in an s3 bucket
 ###################################################################
