@@ -15,7 +15,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - add an example that has code_signing_config_arn
 - add an example with the following lambda permission attributes: qualifier, principle_org_id, statement_id_prefix, source_account, event_source_token, function_url_auth_type
 
-
 ## [1.1.1] - 2023-10-26
 - fix: module's kms key
 - fix: security group ids
@@ -27,7 +26,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - refactored lambda layers and lambda layer permission blocks
 - lambda example with S3 bucket being the location containing the function's deployment package
 - modified lambda layer outputs
-
 
 ## [1.1.0] - 2023-09-04
 - feat: lambda invocation resource for the module
