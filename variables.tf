@@ -52,9 +52,9 @@ variable "kms_key_arn" {
 }
 
 variable "layers" {
-  type        = any
+  type        = map(any)
   description = "(Optional) List of Lambda Layer Version (maximum of 5) to attach to your Lambda Function"
-  default     = []
+  default     = {}
 }
 
 variable "memory_size" {
@@ -165,12 +165,6 @@ variable "timeouts" {
   default     = {}
 }
 
-variable "log_group_kms_arn" {
-  type        = string
-  description = "ARN of an existing KMS Key to encrypt/decrypt the lambda cloudwatch log group"
-  default     = null
-}
-
 variable "enable_key_rotation" {
   type        = bool
   description = "Choose whether to enable key rotation for cloudwatch kms key"
@@ -195,19 +189,18 @@ variable "lambda_permissions" {
   default     = []
 }
 
-variable "layers_permission" {
-  type        = list(any)
+variable "layer_permission" {
+  type        = map(any)
   description = "Configuration to allow sharing of Lambda Layers to another account by account ID, to all accounts in AWS organization or even to all AWS accounts."
-  default     = []
+  default     = {}
 }
 
 ## Alias
 variable "alias" {
-  type        = map(string)
+  type        = map(any)
   description = "Configuration for lambda alias"
   default     = {}
 }
-
 
 ## Lambda Invocation
 variable "create_lambda_invocation" {
@@ -282,4 +275,10 @@ variable "security_group_egress_rules" {
   description = "(Optional) Egress rules to add to the security group"
   type        = any
   default     = {}
+}
+
+variable "create_kms_key" {
+  description = "Whether to create KMS  key or not"
+  type        = bool
+  default     = false
 }

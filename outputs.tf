@@ -87,53 +87,54 @@ output "lambda_role_arn" {
 
 ### Lambda KMS
 output "lambda_kms_arn" {
-  value       = join("", aws_kms_key.cloudwatch.*.arn)
+  value       = join("", aws_kms_key.main.*.arn)
   description = "The Amazon Resource Name (ARN) of the lambda key."
 }
 
 output "lambda_kms_id" {
-  value       = join("", aws_kms_key.cloudwatch.*.key_id)
+  value       = join("", aws_kms_key.main.*.key_id)
   description = "The globally unique identifier for the lambda kms key."
 }
 
+
 ### Lambda Layer
 output "layer_name" {
-  value       = join("", aws_lambda_layer_version.main.*.layer_name)
+  value       = [for layer in aws_lambda_layer_version.main : layer.layer_name]
   description = "Name for your Lambda Layer"
 }
 
 output "layer_arn" {
-  value       = join("", aws_lambda_layer_version.main.*.arn)
+  value       = [for layer in aws_lambda_layer_version.main : layer.arn]
   description = "ARN of the Lambda Layer with version."
 }
 
 output "layer_created_date" {
-  value       = join("", aws_lambda_layer_version.main.*.created_date)
+  value       = [for layer in aws_lambda_layer_version.main : layer.created_date]
   description = "Date this resource was created."
 }
 
 output "layer_arn_without_version" {
-  value       = join("", aws_lambda_layer_version.main.*.layer_arn)
+  value       = [for layer in aws_lambda_layer_version.main : layer.layer_arn]
   description = "ARN of the Lambda Layer without version."
 }
 
 output "layer_signing_job_arn" {
-  value       = join("", aws_lambda_layer_version.main.*.signing_job_arn)
+  value       = [for layer in aws_lambda_layer_version.main : layer.signing_job_arn]
   description = "ARN of a signing job."
 }
 
 output "layer_signing_profile_version_arn" {
-  value       = join("", aws_lambda_layer_version.main.*.signing_profile_version_arn)
+  value       = [for layer in aws_lambda_layer_version.main : layer.signing_profile_version_arn]
   description = "ARN for a signing profile version."
 }
 
 output "layer_source_code_size" {
-  value       = join("", aws_lambda_layer_version.main.*.source_code_size)
+  value       = [for layer in aws_lambda_layer_version.main : layer.source_code_size]
   description = "Size in bytes of the function .zip file."
 }
 
 output "layer_version" {
-  value       = join("", aws_lambda_layer_version.main.*.version)
+  value       = [for layer in aws_lambda_layer_version.main : layer.version]
   description = "Lambda Layer version."
 }
 
