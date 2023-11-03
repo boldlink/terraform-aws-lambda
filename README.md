@@ -55,8 +55,9 @@ See how other variables with the same type have been used in [`complete example`
 
 ```hcl
 module "minimum_lambda_example" {
-  source                        = "../.."
   #checkov:skip=CKV_AWS_50:X-ray tracing is enabled for Lambda
+  source                        = "boldlink/lambda/aws"
+  version                       = "<latest_module_version>"
   function_name                 = local.function_name
   description                   = "Lambda function to stop EC2 instances"
   filename                      = "lambda.zip"
@@ -70,7 +71,6 @@ module "minimum_lambda_example" {
   tracing_config = {
     mode = "Active"
   }
-}
 }
 ```
 ## Documentation
