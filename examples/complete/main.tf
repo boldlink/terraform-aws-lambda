@@ -195,7 +195,7 @@ module "external_kms" {
   tags                    = local.tags
 }
 
-module "lambda_with_ext_kms" {
+module "lambda_with_ext_kms" { ## Especially for encrypting environment variables
   source = "../.."
   #checkov:skip=CKV_AWS_50:X-ray tracing is enabled for Lambda
   function_name                 = "${local.function_name}-ext-kms"
@@ -208,10 +208,16 @@ module "lambda_with_ext_kms" {
   additional_lambda_permissions = local.additional_lambda_permissions
   tags                          = local.tags
   kms_key_arn                   = module.external_kms.arn
+    environment = {
+    variables = {
+      department = "Operations"
+    }
+  }
 
   tracing_config = {
     mode = "Active"
   }
+  depends_on = [module.external_kms]
 }
 
 ###################################################################
@@ -247,8 +253,7 @@ module "lambda_with_s3" {
   tags                          = local.tags
 
   layers = {
-    example = {
-      layer_name          = "requests-s3"
+    requests-s3 = {
       s3_bucket           = module.s3_bucket.id
       s3_key              = data.archive_file.requests.output_path
       compatible_runtimes = ["python3.9"]
