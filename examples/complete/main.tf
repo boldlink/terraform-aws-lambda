@@ -208,7 +208,7 @@ module "lambda_with_ext_kms" { ## Especially for encrypting environment variable
   additional_lambda_permissions = local.additional_lambda_permissions
   tags                          = local.tags
   kms_key_arn                   = module.external_kms.arn
-    environment = {
+  environment = {
     variables = {
       department = "Operations"
     }
