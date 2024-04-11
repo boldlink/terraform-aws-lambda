@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - add an example that has code_signing_config_arn
 - add an example with the following lambda permission attributes: qualifier, principle_org_id, statement_id_prefix, source_account, event_source_token, function_url_auth_type
 
+## [1.1.2] - 2024-04-11
+- fix: attaching lambda layer arns to lambda function
+- update in place for external kms
+
 ## [1.1.1] - 2023-10-26
 - fix: module's kms key
 - fix: security group ids
@@ -46,8 +50,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial commit
 - feat: add files from template repository
 
-[Unreleased]: https://github.com/boldlink/terraform-aws-lambda/compare/1.1.1...HEAD
+[Unreleased]: https://github.com/boldlink/terraform-aws-lambda/compare/1.1.2...HEAD
 
+[1.1.2]: https://github.com/boldlink/terraform-aws-lambda/releases/tag/1.1.2
 [1.1.1]: https://github.com/boldlink/terraform-aws-lambda/releases/tag/1.1.1
 [1.1.0]: https://github.com/boldlink/terraform-aws-lambda/releases/tag/1.1.0
 [1.0.1]: https://github.com/boldlink/terraform-aws-lambda/releases/tag/1.0.1

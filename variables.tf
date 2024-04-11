@@ -53,8 +53,14 @@ variable "kms_key_arn" {
 
 variable "layers" {
   type        = map(any)
-  description = "(Optional) List of Lambda Layer Version (maximum of 5) to attach to your Lambda Function"
+  description = "(Optional) Map of Lambda Layers to create and attach to your Lambda Function"
   default     = {}
+}
+
+variable "additional_layers" {
+  type        = list(string)
+  description = "(Optional) List of Lambda Layer Version (maximum of 5) to attach to your Lambda Function"
+  default     = []
 }
 
 variable "memory_size" {

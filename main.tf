@@ -11,7 +11,7 @@ resource "aws_lambda_function" "main" {
   s3_object_version              = var.s3_object_version
   handler                        = var.handler
   kms_key_arn                    = var.create_kms_key ? aws_kms_key.main[0].arn : var.kms_key_arn
-  layers                         = try(aws_lambda_layer_version.main.*.arn, [])
+  layers                         = concat([for layer in aws_lambda_layer_version.main : layer.arn], var.additional_layers)
   memory_size                    = var.memory_size
   package_type                   = var.package_type
   publish                        = var.publish
@@ -83,7 +83,8 @@ resource "aws_lambda_function" "main" {
   depends_on = [
     aws_iam_role_policy_attachment.lambda_logs,
     aws_cloudwatch_log_group.lambda,
-    aws_kms_key.main
+    aws_kms_key.main,
+    aws_lambda_layer_version.main
   ]
 }
 
@@ -129,7 +130,7 @@ resource "aws_kms_key" "main" {
 resource "aws_lambda_layer_version" "main" {
   for_each                 = var.layers
   filename                 = try(each.value.filename, null)
-  layer_name               = each.value.layer_name
+  layer_name               = each.key
   compatible_runtimes      = try(each.value.compatible_runtimes, [])
   compatible_architectures = try(each.value.compatible_architectures, [])
   description              = try(each.value.description, null)

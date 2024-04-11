@@ -91,7 +91,7 @@ module "minimum_lambda_example" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.24.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.44.0 |
 
 ## Modules
 
@@ -126,6 +126,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_additional_lambda_permissions"></a> [additional\_lambda\_permissions](#input\_additional\_lambda\_permissions) | Add additional iam policy statements for the lambda created by this module | `any` | `{}` | no |
+| <a name="input_additional_layers"></a> [additional\_layers](#input\_additional\_layers) | (Optional) List of Lambda Layer Version (maximum of 5) to attach to your Lambda Function | `list(string)` | `[]` | no |
 | <a name="input_alias"></a> [alias](#input\_alias) | Configuration for lambda alias | `map(any)` | `{}` | no |
 | <a name="input_architectures"></a> [architectures](#input\_architectures) | (Optional) Instruction set architecture for your Lambda function. Valid values are `["x86_64"]` and `["arm64"]`. Default is `["x86_64"]`. Removing this attribute, function's architecture stay the same. | `list(string)` | <pre>[<br>  "x86_64"<br>]</pre> | no |
 | <a name="input_code_signing_config_arn"></a> [code\_signing\_config\_arn](#input\_code\_signing\_config\_arn) | (Optional) To enable code signing for this function, specify the ARN of a code-signing configuration. A code-signing configuration includes a set of signing profiles, which define the trusted publishers for this function. | `string` | `null` | no |
@@ -148,7 +149,7 @@ No modules.
 | <a name="input_kms_key_arn"></a> [kms\_key\_arn](#input\_kms\_key\_arn) | (Optional) Amazon Resource Name (ARN) of the AWS Key Management Service (KMS) key that is used to encrypt environment variables. If this configuration is not provided when environment variables are in use, AWS Lambda uses a default service key. If this configuration is provided when environment variables are not in use, the AWS Lambda API does not save this configuration and Terraform will show a perpetual difference of adding the key. To fix the perpetual difference, remove this configuration. | `string` | `null` | no |
 | <a name="input_lambda_permissions"></a> [lambda\_permissions](#input\_lambda\_permissions) | Configuration to give external source(s) (like an EventBridge Rule, SNS, or S3) permission to access the Lambda function. | `list(any)` | `[]` | no |
 | <a name="input_layer_permission"></a> [layer\_permission](#input\_layer\_permission) | Configuration to allow sharing of Lambda Layers to another account by account ID, to all accounts in AWS organization or even to all AWS accounts. | `map(any)` | `{}` | no |
-| <a name="input_layers"></a> [layers](#input\_layers) | (Optional) List of Lambda Layer Version (maximum of 5) to attach to your Lambda Function | `map(any)` | `{}` | no |
+| <a name="input_layers"></a> [layers](#input\_layers) | (Optional) Map of Lambda Layers to create and attach to your Lambda Function | `map(any)` | `{}` | no |
 | <a name="input_lifecycle_scope"></a> [lifecycle\_scope](#input\_lifecycle\_scope) | (Optional) Lifecycle scope of the resource to manage. Valid values are CREATE\_ONLY and CRUD. Defaults to CREATE\_ONLY. CREATE\_ONLY will invoke the function only on creation or replacement. CRUD will invoke the function on each lifecycle event, and augment the input JSON payload with additional lifecycle information. | `string` | `"CREATE_ONLY"` | no |
 | <a name="input_memory_size"></a> [memory\_size](#input\_memory\_size) | (Optional) Amount of memory in MB your Lambda Function can use at runtime. Defaults to `128` | `number` | `128` | no |
 | <a name="input_package_type"></a> [package\_type](#input\_package\_type) | (Optional) Lambda deployment package type. Valid values are `Zip` and `Image`. Defaults to `Zip` | `string` | `"Zip"` | no |
