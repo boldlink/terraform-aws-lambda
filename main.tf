@@ -101,6 +101,7 @@ resource "aws_cloudwatch_log_group" "lambda" {
 resource "aws_iam_role" "iam_for_lambda" {
   name               = "${var.function_name}-role"
   assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json
+  tags               = var.tags
 }
 
 resource "aws_iam_policy" "lambda_logging" {
@@ -108,6 +109,7 @@ resource "aws_iam_policy" "lambda_logging" {
   path        = "/"
   description = "IAM policy for logging from ${var.function_name}"
   policy      = data.aws_iam_policy_document.lambda.json
+  tags        = var.tags
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_logs" {
@@ -140,6 +142,7 @@ resource "aws_lambda_layer_version" "main" {
   s3_object_version        = try(each.value.s3_object_version, null)
   skip_destroy             = try(each.value.skip_destroy, null)
   source_code_hash         = try(each.value.source_code_hash, null)
+  tags                     = var.tags
 }
 
 resource "aws_lambda_layer_version_permission" "main" {
@@ -176,6 +179,7 @@ resource "aws_lambda_alias" "main" {
   description      = try(each.value.description, null)
   function_name    = aws_lambda_function.main.function_name
   function_version = aws_lambda_function.main.version
+  tags             = var.tags
 
   depends_on = [aws_lambda_function.main]
 }

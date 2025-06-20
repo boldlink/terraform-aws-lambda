@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - add an example that has code_signing_config_arn
 - add an example with the following lambda permission attributes: qualifier, principle_org_id, statement_id_prefix, source_account, event_source_token, function_url_auth_type
 
+## [1.1.3] - 2025-06-20
+- fix: add missing tags to IAM role, IAM policy, lambda layer version, and lambda alias resources
+
 ## [1.1.2] - 2024-04-11
 - fix: attaching lambda layer arns to lambda function
 - update in place for external kms
@@ -50,11 +53,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial commit
 - feat: add files from template repository
 
-[Unreleased]: https://github.com/boldlink/terraform-aws-lambda/compare/1.1.2...HEAD
+[Unreleased]: https://github.com/boldlink/terraform-aws-lambda/compare/1.1.3...HEAD
 
+[1.1.3]: https://github.com/boldlink/terraform-aws-lambda/releases/tag/1.1.3
 [1.1.2]: https://github.com/boldlink/terraform-aws-lambda/releases/tag/1.1.2
 [1.1.1]: https://github.com/boldlink/terraform-aws-lambda/releases/tag/1.1.1
 [1.1.0]: https://github.com/boldlink/terraform-aws-lambda/releases/tag/1.1.0
 [1.0.1]: https://github.com/boldlink/terraform-aws-lambda/releases/tag/1.0.1
 [1.0.0]: https://github.com/boldlink/terraform-aws-lambda/releases/tag/1.0.0
 [0.1.0]: https://github.com/boldlink/terraform-aws-lambda/releases/tag/0.1.0
+
+<h4> Boldink-SIG 2025 <h4>
