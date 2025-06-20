@@ -142,7 +142,6 @@ resource "aws_lambda_layer_version" "main" {
   s3_object_version        = try(each.value.s3_object_version, null)
   skip_destroy             = try(each.value.skip_destroy, null)
   source_code_hash         = try(each.value.source_code_hash, null)
-  tags                     = var.tags
 }
 
 resource "aws_lambda_layer_version_permission" "main" {
