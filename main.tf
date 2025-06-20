@@ -178,8 +178,6 @@ resource "aws_lambda_alias" "main" {
   description      = try(each.value.description, null)
   function_name    = aws_lambda_function.main.function_name
   function_version = aws_lambda_function.main.version
-  tags             = var.tags
-
   depends_on = [aws_lambda_function.main]
 }
 

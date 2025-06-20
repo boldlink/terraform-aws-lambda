@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - add an example with the following lambda permission attributes: qualifier, principle_org_id, statement_id_prefix, source_account, event_source_token, function_url_auth_type
 
 ## [1.1.3] - 2025-06-20
-- fix: add missing tags to IAM role, IAM policy, and lambda alias resources
+- fix: add missing tags to IAM role, IAM policy resources
 
 ## [1.1.2] - 2024-04-11
 - fix: attaching lambda layer arns to lambda function
