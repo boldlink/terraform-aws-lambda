@@ -28,9 +28,9 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_archive"></a> [archive](#provider\_archive) | 2.4.2 |
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.44.0 |
-| <a name="provider_null"></a> [null](#provider\_null) | 3.2.2 |
+| <a name="provider_archive"></a> [archive](#provider\_archive) | 2.7.1 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.0.0 |
+| <a name="provider_null"></a> [null](#provider\_null) | 3.2.4 |
 
 ## Modules
 
@@ -41,7 +41,7 @@
 | <a name="module_external_kms"></a> [external\_kms](#module\_external\_kms) | boldlink/kms/aws | 1.2.0 |
 | <a name="module_lambda_with_ext_kms"></a> [lambda\_with\_ext\_kms](#module\_lambda\_with\_ext\_kms) | ../.. | n/a |
 | <a name="module_lambda_with_s3"></a> [lambda\_with\_s3](#module\_lambda\_with\_s3) | ../.. | n/a |
-| <a name="module_s3_bucket"></a> [s3\_bucket](#module\_s3\_bucket) | boldlink/s3/aws | 2.3.1 |
+| <a name="module_s3_bucket"></a> [s3\_bucket](#module\_s3\_bucket) | boldlink/s3/aws | 2.5.1 |
 
 ## Resources
 
