@@ -226,7 +226,7 @@ module "lambda_with_ext_kms" { ## Especially for encrypting environment variable
 
 module "s3_bucket" {
   source        = "boldlink/s3/aws"
-  version       = "2.3.1"
+  version       = "2.5.1"
   bucket        = lower("${local.function_name}-bucket")
   force_destroy = true
   tags          = local.tags
